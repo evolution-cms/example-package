@@ -2,7 +2,7 @@
 
 namespace EvolutionCMS\Custom;
 
-class HomeController
+class ExampleController
 {
 
     function __construct()
