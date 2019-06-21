@@ -41,7 +41,7 @@
 run **artisan**need from **core** folder
 
 **Available commands:**
-```
+```console
 Usage:
   command [options] [arguments]
 
