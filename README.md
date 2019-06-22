@@ -14,7 +14,7 @@
 ### Controllers
 
 
-### Models
+### Models and Eloquent
 
 
 ### Chunks
@@ -31,14 +31,27 @@
 
 ### Migration 
 
+#### Create document
+#### Create template
+#### Create tv
+#### Create module
+#### Create new table
+
 
 ### Laravel Cache
 
 
 ### Laravel langs
 
+
+### custom routing on FastRoute
+
+
+### use .ENV
+
+
 ### Artisan
-run **artisan**need from **core** folder
+run **artisan** from **core** folder
 
 **Available commands:**
 ```console
