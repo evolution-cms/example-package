@@ -9,10 +9,32 @@
 
 
 ### Templates
+Linking templates to the document without EVO admin panel
+
+To work, we need to create a folder views in the root of the site, in which we will have templates. Actually and everything, no additional actions in the form of installing anything is required.
+
+Searches for templates in such order:
+
+- tpl-3_doc-5.blade.php - use this if resource id=5 and resource template=3;
+- doc-5.blade.php - use this if resource id=5;
+- tpl-3.blade.php - use this if resource template=3;
+- example.blade.php - use this if resource templatealias = example;
+
+if not found any match use template from DB
 
 
 ### Controllers
+You can use controllers for prepare variables and sent to template and not use snippets in template (MVC pattern)
 
+in file core/custom/packages/example/ExampleServiceProvider.php you can see how add controllers 
+
+```php
+//sent any data to template you can with this function
+$modx->addDataToView([
+   'foo'=>'bar'
+]);
+```
+recommend place for Controllers in your package: ***src/Controllers***
 
 ### Models and Eloquent
 
