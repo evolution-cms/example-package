@@ -2,7 +2,8 @@
   "name": "evolutioncms/custom",
   "require": {
     "barryvdh/laravel-ide-helper": "~2.4",
-    "vlucas/phpdotenv": "~2.2"
+    "vlucas/phpdotenv": "~2.2",
+    "nikic/fast-route": "*"
   },
   "autoload": {
     "psr-4": {
