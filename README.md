@@ -67,7 +67,11 @@ recommend place for Controllers in your package: ***src/Controllers***
 
 
 ### custom routing on FastRoute
+you can see example in files: 
+- core/custom/packages/example/plugins/FastRoute.plugin.php
+- core/custom/packages/example/src/Controllers/ExampleApiController.php
 
+best practice for build api 
 
 ### use .ENV
 
