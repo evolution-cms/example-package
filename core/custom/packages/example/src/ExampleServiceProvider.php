@@ -48,7 +48,8 @@ class ExampleServiceProvider extends ServiceProvider
             $doc = $modx->getDocument($modx->documentIdentifier);
             $templateAlias = SiteTemplate::select('templatealias')->find($doc['template'])->templatealias;
             $className = '\EvolutionCMS\Custom\\' . ucfirst($templateAlias) . 'Controller';
-            new $className();
+            $controller = new $className();
+            $controller->render();
         });
 
 

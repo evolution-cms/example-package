@@ -8,15 +8,19 @@ class ExampleController
     function __construct()
     {
         $this->modx = EvolutionCMS();
-        $this->render();
     }
 
     public function render()
     {
-        $this->modx->addDataToView([
-            'topmenu'=>$this->topMenu()
-        ]);
+        $this->menu('2');
     }
+
+    private function menu($parents){
+        $docs = $this->modx->runSnippet('DLMenu',['parents'=>$parents, 'api'=>'1']);
+        $menu = json_decode($docs);
+        $this->modx->addDataToView(['menu'=>$menu['0']]);
+    }
+
 
     private function topMenu()
     {
@@ -39,7 +43,10 @@ class ExampleController
                 ]);
             })
             ->getValues();
-        return $docs;
+
+
+        $this->modx->addDataToView(['topmenu'=>$docs]);
     }
+
 
 }
