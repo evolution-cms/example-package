@@ -1,6 +1,6 @@
 
 <li>{{ $item->pagetitle }}
-    @if (is_countable($item->children) && count($item->children) > 0 )
+    @if ( isset($item->children) )
         <ul>
             @foreach ($item->children as $item)
                 @include('partials.menuitem', ['item' => $item])

@@ -2,6 +2,8 @@
 
 namespace EvolutionCMS\Custom;
 
+use Cache;
+
 class ExampleController
 {
 
@@ -16,8 +18,14 @@ class ExampleController
     }
 
     private function menu($parents){
-        $docs = $this->modx->runSnippet('DLMenu',['parents'=>$parents, 'api'=>'1']);
-        $menu = json_decode($docs);
+
+        $cacheid = 'menu'.$this->modx->documentIdentifier;
+        //set cache by docId and 10 min
+        $menu = Cache::remember($cacheid, 10, function () use ($parents) {
+            $docs = $this->modx->runSnippet('DLMenu',['parents'=>$parents, 'api'=>'1']);
+            return json_decode($docs);
+        });
+
         $this->modx->addDataToView(['menu'=>$menu['0']]);
     }
 
