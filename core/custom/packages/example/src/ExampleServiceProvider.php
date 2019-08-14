@@ -1,4 +1,4 @@
-<?php namespace EvolutionCMS\Custom;
+<?php namespace EvolutionCMS\Example;
 
 use EvolutionCMS\Models\SiteTemplate;
 use EvolutionCMS\ServiceProvider;
@@ -42,15 +42,15 @@ class ExampleServiceProvider extends ServiceProvider
             include $file;
         }
 
-        //Подключение контроллеров по названию шаблона
-        Event::listen('evolution.OnWebPageInit', function($params) {
-            $modx = EvolutionCMS();
-            $doc = $modx->getDocument($modx->documentIdentifier);
-            $templateAlias = SiteTemplate::select('templatealias')->find($doc['template'])->templatealias;
-            $className = '\EvolutionCMS\Custom\\' . ucfirst($templateAlias) . 'Controller';
-            $controller = new $className();
-            $controller->render();
-        });
+//        //Подключение контроллеров по названию шаблона
+//        Event::listen('evolution.OnWebPageInit', function($params) {
+//            $modx = EvolutionCMS();
+//            $doc = $modx->getDocument($modx->documentIdentifier);
+//            $templateAlias = SiteTemplate::select('templatealias')->find($doc['template'])->templatealias;
+//            $className = '\EvolutionCMS\Example\\' . ucfirst($templateAlias) . 'Controller';
+//            $controller = new $className();
+//            $controller->render();
+//        });
 
 
     }

@@ -1,6 +1,6 @@
 <?php
 
-namespace EvolutionCMS\Custom;
+namespace EvolutionCMS\Example;
 use Event;
 use FastRoute;
 

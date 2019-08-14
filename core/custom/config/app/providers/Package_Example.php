@@ -1,2 +1,2 @@
 <?php
-    return EvolutionCMS\Custom\ExampleServiceProvider::class;
+    return EvolutionCMS\Example\ExampleServiceProvider::class;

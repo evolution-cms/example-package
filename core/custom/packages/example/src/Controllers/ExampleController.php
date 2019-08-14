@@ -1,60 +1,29 @@
 <?php
 
-namespace EvolutionCMS\Custom;
+namespace EvolutionCMS\Example;
 
-use Cache;
+use Illuminate\Support\Facades\Cache;
 
-class ExampleController
+class ExampleController extends BaseController
 {
-
-    function __construct()
+    public function render()  //Пример для вывода данных
     {
-        $this->modx = EvolutionCMS();
+        $this->data['test'] = 'test';
     }
 
-    public function render()
+    public function noCacheRender()
     {
-        $this->menu('2');
+        $this->data['menu'] = $this->menu(2);
+        $this->data['enable_cache'] = $this->evo->getConfig('enable_cache');
     }
+
 
     private function menu($parents){
-
-        $cacheid = 'menu'.$this->modx->documentIdentifier;
+        $cacheid = 'menu'.$this->evo->documentIdentifier;
         //set cache by docId and 10 min
         $menu = Cache::remember($cacheid, 10, function () use ($parents) {
-            $docs = $this->modx->runSnippet('DLMenu',['parents'=>$parents, 'api'=>'1']);
-            return json_decode($docs);
+           return json_decode($this->evo->runSnippet('DLMenu',['parents'=>$parents, 'api'=>'1']));
         });
-
-        $this->modx->addDataToView(['menu'=>$menu['0']]);
+        return $menu['0'];
     }
-
-
-    private function topMenu()
-    {
-        $params = [
-            'parents'=>'0',
-            'tpl'=>'',
-            'saveDLObject'=>'_DL'
-        ];
-        $this->modx->runSnippet('DocLister', $params);
-        $DocLister = $this->modx->getPlaceholder('_DL');
-        $docs = $DocLister->docsCollection()
-            ->map(function(array $doc){
-                return array_only($doc, [
-                    'id',
-                    'alias',
-                    'pagetitle',
-                    'createdon',
-                    'parent',
-                    'type'
-                ]);
-            })
-            ->getValues();
-
-
-        $this->modx->addDataToView(['topmenu'=>$docs]);
-    }
-
-
 }

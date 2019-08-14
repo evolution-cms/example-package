@@ -1,5 +1,5 @@
 {
-  "name": "evolutioncms/custom",
+  "name": "evolutioncms/example",
   "require": {
     "barryvdh/laravel-ide-helper": "~2.4",
     "vlucas/phpdotenv": "~2.2",
@@ -7,7 +7,8 @@
   },
   "autoload": {
     "psr-4": {
-      "EvolutionCMS\\Custom\\": "packages/example/src/"
+      "EvolutionCMS\\SeriousCustom\\": "packages/seriouscustomtemplate/src/",
+      "EvolutionCMS\\Example\\": "packages/example/src/"
     }
   }
 }
