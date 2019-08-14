@@ -19,7 +19,8 @@ class ExampleController extends BaseController
 
 
     private function menu($parents){
-        $cacheid = 'menu'.$this->evo->documentIdentifier;
+        //Cache for All Pages, but you can't use active class
+        $cacheid = 'menu';//.$this->evo->documentIdentifier;
         //set cache by docId and 10 min
         $menu = Cache::remember($cacheid, 10, function () use ($parents) {
            return json_decode($this->evo->runSnippet('DLMenu',['parents'=>$parents, 'api'=>'1']));

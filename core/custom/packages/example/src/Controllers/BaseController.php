@@ -39,9 +39,8 @@ class BaseController
 
     public function globalElements()
     {
-        $this->data['aaaaa'] = 'aaaa';
-        $this->data['crumbs'] = json_decode($this->evo->runSnippet('DLCrumbs', ['api' => 1, 'showCurrent' => 1, 'addWhereList' => 'alias_visible=1']), true);
-        $this->data['topmenu'] = json_decode($this->evo->runSnippet('DLMenu', ['parents' => 0, 'maxDepth' => 1, 'api' => 1]), true)[0];
+            $this->data['crumbs'] = json_decode($this->evo->runSnippet('DLCrumbs', ['api' => 1, 'showCurrent' => 1, 'addWhereList' => 'alias_visible=1']), true);
+            $this->data['topmenu'] = json_decode($this->evo->runSnippet('DLMenu', ['parents' => 0, 'maxDepth' => 1, 'api' => 1]), true)[0];
     }
 
     public function sendToView()
