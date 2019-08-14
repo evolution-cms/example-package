@@ -44,8 +44,7 @@ Event::listen('evolution.OnManagerWelcomeHome', function(){
                             <li>Blade Cache <strong>'.$sizes['blade'].'</strong></li>
                             <li> &nbsp;</li>
                             <li><a href="index.php?a=2&clc=1" class="btn btn-primary btn_lg">Clear сache</a></li>
-                        </ul>
-                      			
+                        </ul>		
 					</div>'
     );
     return serialize($widgets);
