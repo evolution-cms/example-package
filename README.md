@@ -23,13 +23,12 @@ Searches for templates in such order:
 if not found any match use template from DB
 
 
-### Controllers
+### Controllers and MVC 
+Best way use this packages: https://github.com/Ser1ous/seriousCustomTemplate
 You can use controllers for prepare variables and sent to template and not use snippets in template (MVC pattern)
 
-in file core/custom/packages/example/ExampleServiceProvider.php you can see how add controllers 
-
+If you won't use controllers but want send data to template, ffor example from plugin or snippet you can use this code:
 ```php
-//sent any data to template you can with this function
 $modx->addDataToView([
    'foo'=>'bar'
 ]);
