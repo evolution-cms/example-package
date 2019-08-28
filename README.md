@@ -36,12 +36,14 @@ $modx->addDataToView([
 ```
 place for Controllers in your package: ***src/Controllers***
 
+p.s. after add come new Controllers need run composer upd
 
 ### Models and Eloquent
 place for Models in your package: ***src/Models***
 All default tables already have Models you can see here: **/core/src/Models/**
 all works same https://laravel.com/docs/6.0/eloquent
 
+p.s. after add come new Models need run composer upd
 
 ### Chunks
 You can create chunks from files:
