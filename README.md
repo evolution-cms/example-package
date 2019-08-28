@@ -136,7 +136,8 @@ you can see example in files:
 best practice for build api 
 
 ### use .ENV
-see **core/custom/.env.example**
+**core/custom/.env.example**
+
 need install **vlucas/phpdotenv** see **/core/custom/composer.json.example**
 
 
