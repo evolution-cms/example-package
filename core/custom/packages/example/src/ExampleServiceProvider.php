@@ -42,6 +42,7 @@ class ExampleServiceProvider extends ServiceProvider
             include $file;
         }
 
+        $this->app->registerModule('module from file', dirname(__DIR__).'/module/module.php');
 //        //Подключение контроллеров по названию шаблона
 //        Event::listen('evolution.OnWebPageInit', function($params) {
 //            $modx = EvolutionCMS();
