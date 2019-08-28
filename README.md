@@ -7,7 +7,6 @@
 - Set this template to Document what you want test
 
 
-
 ### Templates
 Linking templates to the document without EVO admin panel
 
@@ -22,6 +21,8 @@ Searches for templates in such order:
 
 if not found any match use template from DB
 
+Template work with Blade, docs here: https://laravel.com/docs/6.0/blade
+
 
 ### Controllers and MVC 
 Best way use this packages: https://github.com/Ser1ous/seriousCustomTemplate
@@ -33,9 +34,13 @@ $modx->addDataToView([
    'foo'=>'bar'
 ]);
 ```
-recommend place for Controllers in your package: ***src/Controllers***
+place for Controllers in your package: ***src/Controllers***
+
 
 ### Models and Eloquent
+place for Models in your package: ***src/Models***
+All default tables already have Models you can see here: **/core/src/Models/**
+all works same https://laravel.com/docs/6.0/eloquent
 
 
 ### Chunks
@@ -123,10 +128,6 @@ Event::listen('evolution.OnCacheUpdate', function($params) {
 });
 ```
 
-
-### Laravel langs
-
-
 ### custom routing on FastRoute
 you can see example in files: 
 - core/custom/packages/example/plugins/FastRoute.plugin.php
@@ -135,6 +136,8 @@ you can see example in files:
 best practice for build api 
 
 ### use .ENV
+see **core/custom/.env.example**
+need install **vlucas/phpdotenv** see **/core/custom/composer.json.example**
 
 
 ### Artisan
