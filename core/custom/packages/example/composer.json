@@ -1,0 +1,19 @@
+{
+  "name": "ser1ous/example",
+  "require": {
+
+  },
+  "autoload": {
+    "psr-4": {
+      "EvolutionCMS\\Example\\": "src"
+    }
+  },
+  "extra": {
+    "laravel": {
+      "providers": [
+        "EvolutionCMS\\Example\\ExampleServiceProvider"
+      ]
+
+    }
+  }
+}

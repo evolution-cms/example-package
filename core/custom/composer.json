@@ -3,11 +3,11 @@
   "require": {
     "barryvdh/laravel-ide-helper": "~2.4",
     "vlucas/phpdotenv": "~2.2",
-    "nikic/fast-route": "*"
+    "nikic/fast-route": "*",
+    "ser1ous/serious-custom-template": "*"
   },
   "autoload": {
     "psr-4": {
-      "EvolutionCMS\\SeriousCustom\\": "packages/seriouscustomtemplate/src/",
       "EvolutionCMS\\Example\\": "packages/example/src/"
     }
   }
