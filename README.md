@@ -7,7 +7,6 @@
 - Set this template to Document what you want test
 
 
-
 ### Templates
 Linking templates to the document without EVO admin panel
 
@@ -22,34 +21,88 @@ Searches for templates in such order:
 
 if not found any match use template from DB
 
+Template work with Blade, docs here: https://laravel.com/docs/6.0/blade
 
-### Controllers
+
+### Controllers and MVC 
+Best way use this packages: https://github.com/Ser1ous/seriousCustomTemplate
 You can use controllers for prepare variables and sent to template and not use snippets in template (MVC pattern)
 
-in file core/custom/packages/example/ExampleServiceProvider.php you can see how add controllers 
-
+If you won't use controllers but want send data to template, ffor example from plugin or snippet you can use this code:
 ```php
-//sent any data to template you can with this function
 $modx->addDataToView([
    'foo'=>'bar'
 ]);
 ```
-recommend place for Controllers in your package: ***src/Controllers***
+place for Controllers in your package: ***src/Controllers***
+
 
 ### Models and Eloquent
+place for Models in your package: ***src/Models***
+All default tables already have Models you can see here: **/core/src/Models/**
+all works same https://laravel.com/docs/6.0/eloquent
 
 
 ### Chunks
+You can create chunks from files:
+```
+$this->loadChunksFrom(
+    dirname(__DIR__) . '/chunks/',
+    $this->namespace
+);
+```
+in file core/custom/packages/example/ExampleServiceProvider.php you can see how this work
 
+See sample of chunks in folder: core/custom/packages/example/chunks/
+
+If you use package with namespace you need write snippet like: namespace#chunkname: 
+```
+$modx->getChunk('example#test');
+```
+You can use subdir, put chunk file in subdir after that call:
+```
+$modx->getChunk('example#subdir\test');
+```
 
 ### Snippets
+You can create snippets from files:
+```
+$this->loadSnippetsFrom(
+    dirname(__DIR__). '/snippets/',
+    $this->namespace
+);
+```
+in file core/custom/packages/example/ExampleServiceProvider.php you can see how this work
 
+See sample of snippets in folder: core/custom/packages/example/snippets/
+
+If you use package with namespace you need write snippet like: namespace#snippetname: 
+```
+$modx->runSnippet('example#test');
+```
+You can use subdir, put snippet file in subdir after that call:
+```
+$modx->runSnippet('example#subdir\test');
+```
 
 ### Plugins
+You can create plugins from files:
+```
+//this code work for add plugins to Evo
+foreach (glob(dirname(__DIR__) . '/plugins/*.php') as $file) {
+    include $file;
+}
+```
+in file core/custom/packages/example/ExampleServiceProvider.php you can see how this work
 
+See sample of plugins in folder: core/custom/packages/example/plugins/
 
 ### Modules
-
+You can create module from files, without adding in manager panel:
+```
+$this->app->registerModule('module from file', dirname(__DIR__).'/module/module.php');
+```
+in file core/custom/packages/example/ExampleServiceProvider.php you can see how this work
 
 ### Migration 
 
@@ -61,10 +114,19 @@ recommend place for Controllers in your package: ***src/Controllers***
 
 
 ### Laravel Cache
+All works same https://laravel.com/docs/6.0/cache
+```
+$items = Cache::rememberForever($cacheid, function () use ($params) {
+    return foo($params);
+});
+```
 
-
-### Laravel langs
-
+for clear laravel cache you can use plugin on event(OnCacheUpdate or OnSiteRefresh), or write own logic:
+```
+Event::listen('evolution.OnCacheUpdate', function($params) {
+    Cache::flush();
+});
+```
 
 ### custom routing on FastRoute
 you can see example in files: 
@@ -74,6 +136,9 @@ you can see example in files:
 best practice for build api 
 
 ### use .ENV
+**core/custom/.env.example**
+
+need install **vlucas/phpdotenv** see **/core/custom/composer.json.example**
 
 
 ### Artisan
