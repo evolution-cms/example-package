@@ -32,23 +32,15 @@ class ExampleServiceProvider extends ServiceProvider
             $this->namespace
         );
 
-        //Тут работаем с событиями как EVO так и Laravel:
-        foreach (glob(dirname(__DIR__) . '/plugins/*.php') as $file) {
-            include $file;
-        }
+        $this->loadPluginsFrom(
+            dirname(__DIR__) . '/plugins/'
+        );
 
-        $this->app->registerModule('module from file', dirname(__DIR__).'/module/module.php');
 
-//        //Подключение контроллеров по названию шаблона
-//        Event::listen('evolution.OnWebPageInit', function($params) {
-//            $modx = EvolutionCMS();
-//            $doc = $modx->getDocument($modx->documentIdentifier);
-//            $templateAlias = SiteTemplate::select('templatealias')->find($doc['template'])->templatealias;
-//            $className = '\EvolutionCMS\Example\\' . ucfirst($templateAlias) . 'Controller';
-//            $controller = new $className();
-//            $controller->render();
-//        });
-
+        $this->app->registerModule(
+            'module from file',
+            dirname(__DIR__).'/module/module.php'
+        );
 
     }
 }

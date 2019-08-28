@@ -89,9 +89,9 @@ $modx->runSnippet('example#subdir\test');
 You can create plugins from files:
 ```
 //this code work for add plugins to Evo
-foreach (glob(dirname(__DIR__) . '/plugins/*.php') as $file) {
-    include $file;
-}
+  $this->loadPluginsFrom(
+    dirname(__DIR__) . '/plugins/'
+  );
 ```
 in file core/custom/packages/example/ExampleServiceProvider.php you can see how this work
 
