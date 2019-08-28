@@ -37,11 +37,6 @@ class ExampleServiceProvider extends ServiceProvider
             include $file;
         }
 
-        //Тут работаем с событиями как EVO так и Laravel:
-        foreach (glob(__DIR__ . '/Controllers/*.php') as $file) {
-            include $file;
-        }
-
         $this->app->registerModule('module from file', dirname(__DIR__).'/module/module.php');
 //        //Подключение контроллеров по названию шаблона
 //        Event::listen('evolution.OnWebPageInit', function($params) {

@@ -1,5 +1,5 @@
 <?php
     return [
         'enable_cache'=>true,
-        'seriousTemplateNamespace' => 'EvolutionCMS\\Example\\'
+        'seriousTemplateNamespace' => 'EvolutionCMS\\Example\\Controllers\\'
     ];

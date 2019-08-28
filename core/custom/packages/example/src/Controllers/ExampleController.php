@@ -1,6 +1,6 @@
 <?php
 
-namespace EvolutionCMS\Example;
+namespace EvolutionCMS\Example\Controllers;
 
 use Illuminate\Support\Facades\Cache;
 
