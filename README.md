@@ -130,11 +130,11 @@ and fill 2 function:
     
     //Delete created document and setting
     public function down()
-        {
-            $evo = evolutionCMS();
-            SiteContent::where('id',$evo->getConfig('page_id_test'))->delete();
-            evo_delete_config_settings('page_id_test');
-        }
+    {
+        $page_id_test = evolutionCMS()->getConfig('page_id_test');
+        SiteContent::find($page_id_test)->forceDelete();
+        evo_delete_config_settings('page_id_test');
+    }
 ```
 
 #### Run migration
@@ -164,7 +164,7 @@ Event::listen('evolution.OnCacheUpdate', function($params) {
 });
 ```
 
-### custom routing on FastRoute
+### Custom routing on FastRoute
 you can see example in files: 
 - core/custom/packages/example/plugins/FastRoute.plugin.php
 - core/custom/packages/example/src/Controllers/ExampleApiController.php
