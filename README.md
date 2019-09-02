@@ -250,6 +250,14 @@ class ExampleCommand extends Command
     }
 }
 ```
+add in file: **core/custom/packages/example/src/ExampleServiceProvider.php**
+```
+    //add after line: protected $namespace
+    protected $commands = [
+        'EvolutionCMS\Example\Console\ExampleCommand',
+    ];
+```
+
 
 ### IDE-Helper
 
