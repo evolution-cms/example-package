@@ -108,11 +108,45 @@ in file core/custom/packages/example/ExampleServiceProvider.php you can see how 
 
 ### Migration 
 
-#### Create document
-#### Create template
-#### Create tv
-#### Create module
-#### Create new table
+#### Create migration file
+run command from folder **core**: 
+```
+php artisan  make:migration test
+```
+This will create migration file in folder: **/core/database/migration**
+
+#### Fill migration file
+Open created file from **/core/database/migration**
+and fill 2 function:
+```
+    //Create new Doc and add docId in global setting for use
+    public function up()
+    {
+        $testDoc = SiteContent::create([
+            'pagetitle' => 'test'
+        ])->getKey();
+        evo_update_config_settings('page_id_test', $testDoc);
+    }
+    
+    //Delete created document and setting
+    public function down()
+        {
+            $evo = evolutionCMS();
+            SiteContent::where('id',$evo->getConfig('page_id_test'))->delete();
+            evo_delete_config_settings('page_id_test');
+        }
+```
+
+#### Run migration
+run command from folder **core**:
+
+```php artisan migrate```
+
+#### Rollback last migration
+run command from folder **core**:
+
+```php artisan migrate:rollback```
+
 
 
 ### Laravel Cache
@@ -188,3 +222,6 @@ Available commands:
  view
   view:clear              Clear all compiled view files
 ```
+
+Also you can add own artisan commands:
+@TODO: Serious
