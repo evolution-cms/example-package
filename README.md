@@ -177,8 +177,6 @@ best practice for build api
 ### use .ENV
 **core/custom/.env.example**
 
-need install **vlucas/phpdotenv** see **/core/custom/composer.json.example**
-
 
 ### Artisan
 run **artisan** from **core** folder:
