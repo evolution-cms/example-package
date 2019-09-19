@@ -11,7 +11,7 @@ class BaseController
     public function __construct()
     {
         $this->evo = EvolutionCMS();
-        sort($_GET);
+        ksort($_GET);
         $cacheid = md5(json_encode($_GET));
         if ($this->evo->getConfig('enable_cache')) {
             $this->data = Cache::rememberForever($cacheid, function () {
