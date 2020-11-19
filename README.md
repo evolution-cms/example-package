@@ -1,8 +1,11 @@
-# Example package for Evolution CMS 3.0 
-Since most Laravel components are already in the core of Evolution CMS, it is logical to write additions for Evolution CMS according to the rules of Laravel: https://laravel.com/docs/8.x/packages
-Most Laravel packages can be easy migrate to Evolution CMS.
+[English version](README_en.md)
 
-## Contents:
+# Пример пакета для Evolution CMS 3.0 
+Так как все больше компонентов Laravel в ядре Evo, то все основные вещи для разработки своих дополнений так же как в Laravel, поэтому настоятельно рекомендую сначала ознакомится с :  https://laravel.com/docs/8.x/packages
+Так же не сильно сложно портировать дополнения для Laravel в Evolution CMS, почти всегда это чисто косметические правки и допиливание уже под свои нужды. 
+
+
+## Содержание:
 - [Install](#Install)
 - [Package structure](#package-structure)
 - [Assets](#assets)
@@ -22,168 +25,182 @@ Most Laravel packages can be easy migrate to Evolution CMS.
     - [Routes](#routes)
     - [Middleware](#middleware)
     - [Models](#models)
-- [How Publish own package?](#how-publish-own-package)
-- [How Migrate old solution for EVO 3.0](#how-migrate-old-solution-for-evo-30)
+- [Как опубликовать свой пакет?](#how-publish-own-package)
+- [Как мигрировать старые дополнения в EVO 3.0](#how-migrate-old-solution-for-evo-30)
 
 
 ## Install
-Run in you **core** folder:
-1. ```php artisan package:installrequire evolution-cms/example-package "*" ```
+Выполнить из папки **core**:
+1. ```php artisan package:installrequire evolution-cms/example-package "*" ``` - необходимо что б пакет был зарегистирован на сайте packagist.org
 
 2. ```php artisan vendor:publish --provider="EvolutionCMS\Example\ExampleServiceProvider"``` - если используется копирование файлов публичных и конфигов
 
 3. ```php artisan migrate``` - если используются миграции
 
 ## Package structure
-This structure recommended for use, but you can use any what you want.
+Рекомендованная структура папок:
 
-- Assets: folder for files what connected   
+- Assets: для привычной структуры, в целом нам нужны только плагины и модули и можно вынести в корень, сниппеты и чанки могут понадобиться только для того что б мигрировать старые дополнения
+- Lang: для мультиязычности
+- Migrations: для миграций, в целом это для создания таблиц, но можно так же делать и другие действия, к примеру через миграции можно создавать шаблоны, тв, документы
+- Public: все файлы которые нужны публично, в основном js, css, картинки
+- Views: для шаблонов Blade
+- src: тут все что попадает в автолоад composer-a
+    -config: Файлы которые содержать настройки
+    -Console: для консольных команд которые можно запускать через artisan или через cron
+    -Controllers: тут создаем контроллеры
+    -Http: тут фаил с кастомным роутингом
+    -Middleware: создаем свои Middleware если нужно 
+    -Models: для моделек если создаем какие то таблицы или переопределяем работу уже готовых моделей 
 
-
+В целом структуру папок пакета можно менять под себя, данный пример носит рекомендованный характер
 
 ## Assets
-Used for convenience when migrating from older versions and for a more familiar naming and location of elements.
+Ниже описание как работать с тем что лежит в папке assets
 
 ### Chunks
-You can create chunks from files:
+Есть возможность создавать чанки в файлах, можно глянуть тут: assets/chunks/
+
+Для того что б чанки попали в систему нужно добавить в сервис провайдере в register из загрузку: 
 ```
 $this->loadChunksFrom(
     dirname(__DIR__) . '/assets/chunks/',
     $this->namespace
 );
 ```
-in file core/custom/packages/example/ExampleServiceProvider.php you can see how this work
 
-See sample of chunks in folder: core/custom/packages/example/assets/chunks/
-
-If you use package with namespace you need write snippet like: namespace#chunkname: 
+Далее можем использовать где нам нужно обращаясь к чанку по имени: namespace#chunkname: 
 ```
 $modx->getChunk('example#test');
 ```
-You can use subdir, put chunk file in subdir after that call:
+Так же можно чанки складывать по папкам вложенны:
 ```
 $modx->getChunk('example#subdir\test');
 ```
 
+В целом в 3.0 использование чанков не имеет смысла, так как это все логичней и проще делать через Blade
+
+
 ### Modules
-You can create module from files, without adding in manager panel:
+Для того что б модуль появился в Админке его необходимо зарегистировать добавив в сервис провайдере в метод register:
 ```
 $this->app->registerModule('Module from file', dirname(__DIR__).'/assets/modules/module/module.php');
 ```
-in file core/custom/packages/example/ExampleServiceProvider.php you can see how this work
+ID модуля это **md5('Название модуля')** - это даст возможность сделать ссылку на модуль, так как модуль не создается в базе и соответственно цифрового id у него нет.
 
 ### Plugins
-You can create plugins from files:
+Плагины так же можно создавать в файлах и их нужно регистировать в сервиспровайдере:
 ```
 //this code work for add plugins to Evo
   $this->loadPluginsFrom(
     dirname(__DIR__) . '/assets/plugins/'
   );
 ```
-in file core/custom/packages/example/ExampleServiceProvider.php you can see how this work
-
-See sample of plugins in folder: core/custom/packages/example/assets/plugins/
+Пример можно глянуть тут: assets/plugins/
 
 ### Snippets
-You can create snippets from files:
+Снипеты так же можно создавать в файлах и их нужно регистировать в сервиспровайдере:
 ```
 $this->loadSnippetsFrom(
     dirname(__DIR__). '/assets//snippets/',
     $this->namespace
 );
 ```
-in file core/custom/packages/example/ExampleServiceProvider.php you can see how this work
+Пример можно глянуть тут: example/snippets/
 
-See sample of snippets in folder: core/custom/packages/example/snippets/
-
-If you use package with namespace you need write snippet like: namespace#snippetname: 
+Если используется namespace в пакете то название сниппета необходимо писать так же с ним: namespace#snippetname: 
 ```
 $modx->runSnippet('example#test');
 ```
-You can use subdir, put snippet file in subdir after that call:
+Так же можно использовать вложенные сниппеты:
 ```
 $modx->runSnippet('example#subdir\test');
 ```
+Сниппеты так же как и чанки не рекомендую для использования, так как куда логичней всю необходимую логику уже писать в Контроллерах
 
 ### TVs
-Create folder and files similar https://github.com/extras-evolution/choiceTV/: 
-```tvs/TVName/TVName.customtv.php``` 
-with all logic what you need and add rules for publications: 
-
+Как правильно создавать ТВ можно глянуть в этом простом примере: https://github.com/extras-evolution/choiceTV/
+Название tv должно быть по шаблону: 
+```tvs/TVName/TVName.customtv.php```
+ 
+В рамках Evo 3.0 и пакета решаем вопрос просто перемещением папки с кастомным ТВ в нужную папку через добавление инструкции в сервиспровайдер:  
 ```html
- $this->publishes([__DIR__ . '/../assets/tvs' => public_path('assets/tvs')]);
+ $this->publishes([__DIR__ . '/../assets/tvs/TVName' => public_path('assets/tvs/TVName')]);
 ```
-after public with artisan public:vendor all will work
+Далее после запуска команды **artisan public:vendor** и выбора указанногоо пакета все файлы скопируются и все будет работать
 
 ## Lang
-Add in Service Provider in boot()
+Добавляем в сервис провайдере в boot()
 ```php
 $this->loadTranslationsFrom(__DIR__.'/../lang', 'example');
 ```
-in Folder lang you need folders for langs like: en, ru, etc. and in folder php file with translations: 
+ссылку на то откуда брать переводы и какой у них namespace. 
+Далее в папке создаем папки с языками( en, ru, итд.) и в них уже файлы с переводами 
 
-After that you can use: 
+После можем использовать в Blade: 
 ```@lang('example::main.welcome')```
 
 
 ## Migrations 
-All work like in Laravel https://laravel.com/docs/8.x/migrations
-Put file with migration for package in folder migrations and set in Service Provider: 
+Все работает точно так же как и в Laravel https://laravel.com/docs/8.x/migrations
+Создаем фаил миграции в папке миграций и прописываем подключение пути для миграций в сервис провайдере: 
 ```$this->loadMigrationsFrom(__DIR__ . '/../migrations');```
 
-When you install package, need run from **core** folder ```php artisan migrate```
+После установки дополнения выполням команду ```php artisan migrate```
 
 
 ## Public
-This folder contains all file what need use for frontend, like css, js, images. 
+Данная папка содержит все что нужно для фронтовой части: css, js, images. 
 
-All file will move to assets folders when you run artisan publish:vendor command. 
-For set what files you can move and where uses laravel functions in Service Provider: 
+Добавляем в сервиспровайдере запись о том что нам нужно перенести: 
 ```php
  $this->publishes([__DIR__ . '/../public' => public_path('assets/vendor/example')]);
 ```
-More info you can find here: https://laravel.com/docs/8.x/packages#public-assets
+А в BLade прописываем уже пути согласно тому куда файлы будут перемещены, для их перемещения используется команда **artisan public:vendor**
+
+Больше информации можно найти тут: https://laravel.com/docs/8.x/packages#public-assets
 
 ## Views
-Add to Service Provider boot:
+Добавляем в сервис провайдер в boot:
 ```php
  $this->loadViewsFrom(__DIR__ . '/../views', 'example');
 ```
-Now you can use views with namespace: 
+После чего мы можем использовать шаблдоны blade c учетом неймспейсов: 
 ```php
 return \View::make('example::example', ['data'=>'1']);
 ```
-If need overriding package views, you can put view file to path:
+Если же нам нужно внести изменения в шаблон blade то создаем фаил в основном месте **views** создав там папку **vendor** и в ней папку с названием пакета :
 ```/views/vendor/example/example.blade.php```
 
-And if you publish views you can do that with this code in Service Provider boot: 
+Так же планируется всегда изменения базовых шаблонов из пакета то можно сразу перенести их в нужное место: 
 ```php
 $this->publishes([__DIR__.'/../views' => public_path('views/vendor/example')]);
 ```
-Full information you can read here: https://laravel.com/docs/8.x/packages#views
+Детальней читаем в документации Laravel: https://laravel.com/docs/8.x/packages#views
 
 
 ## src
-In this place put all code what need be autoloaded with composer
+В этой папке у нас лежит сервиспровайдер а так же все файлы которые попадают в автолоад composer-а, в целом это так же можно изменить если нужно в файле composer.json
 
 ### config
-Read Laravel docs: 
+Работа с конфигами такая же как в Laravel: 
 - https://laravel.com/docs/8.x/packages#configuration
 - https://laravel.com/docs/8.x/packages#default-package-configuration
 
-### Console 
-Artisan is the command-line interface included in Evolutions CMS. It provides a number of helpful commands that can assist you while you build your application. More info you can find here: https://laravel.com/docs/8.x/artisan
+Мы можем создать для пакета свои настройки и после их добавить в системные что б их можно было изменять
 
-#### How use artisan:
-run **artisan** from **core** folder:
+### Console 
+Artisan - это интерфейс командной строки, включенный в Evolutions CMS. Он предоставляет ряд полезных команд, которые могут помочь вам при создании приложения. Более подробную информацию вы можете найти здесь: https://laravel.com/docs/8.x/artisan
+
+#### Как использовать Artisan:
+запустить  **php artisan** из папки **core**:
 ```console
 php artisan
 ```
-for see all Available commands
+для того что б увидеть все команды
 
-#### How Create console command:
-Also you can add own artisan commands:
-create file: **core/custom/packages/example/src/Console/ExampleCommand.php**
+#### Как создать свою консольную команду:
+Создаем фаил: **core/custom/packages/example/src/Console/ExampleCommand.php**
 ```
 <?php
 namespace EvolutionCMS\Example\Console;
@@ -209,35 +226,40 @@ class ExampleCommand extends Command
     }
 }
 ```
-add in file: **core/custom/packages/example/src/ExampleServiceProvider.php**
+Добавляем в сервис провайдере: **core/custom/packages/example/src/ExampleServiceProvider.php**
 ```
-    //add after line: protected $namespace
+    //добавить после строки: protected $namespace
     protected $commands = [
         'EvolutionCMS\Example\Console\ExampleCommand',
     ];
 ```
 
-Now you can use: 
+Теперь можно использовать: 
 ```php artisan example:examplecommand```
 
+Данный функционал удобен для задач которые необходимо выполнять по крону или долгие и проще через консоль что б не было лимитов на время выполнения, которые обычно есть если выполняем какие то работы через браузер.
 
 ### Controllers
-Put Controllers in src/Controllers 
-for sample see in code.
+Контроллеры создаем в папке src/Controllers 
+Можно глянуть примеры которые есть в текущем пакете. 
+
+Контроллеры гараздо удобней в использовании чем снипеты для основной работы. Но думаю те кто уже дошел до OOP и MVC понимают зачем это надо если нет то гуглим OOP, MVC и изучаем
 
 
 ### Routes
-If your package contains routes, you may load them using this code in ServiceProvider boot(): 
+Для использования кастомны роутингов (например ajax ответы) добавляем в сервиспровайдер boot(): 
 ```php
 include(__DIR__.'/Http/routes.php');
 ```
-How work with routes, you can read here: https://laravel.com/docs/8.x/routing
+Как работать с роутингом читаем тут: https://laravel.com/docs/8.x/routing
+Так же рекомендую ознакомится с вот этим примером в котором создаем форму и отправляем ее: https://gist.github.com/Dmi3yy/10e5a004bb77a72a4446ac1ad4c2d9ad
 
 ### Middleware
-You can put Middleware in folder src/Middleware and use that
+Если вы понимаете что такое Middleware то и знаете как с ними работать :)
+Детальней читаем тут: 
 https://laravel.com/docs/8.x/middleware
 
-In Evolution CMS exist Middleware for check user auth token https://github.com/evolution-cms/evolution/blob/3.x/core/src/Middleware/CheckAuthToken.php:
+Из системных на текущий момент есть CheckAuthToken: https://github.com/evolution-cms/evolution/blob/3.x/core/src/Middleware/CheckAuthToken.php (удобно использовать если дружим EVO 3.0 c SPA)
 
 ```php
 Route::middleware(['EvolutionCMS\\Middleware\\CheckAuthToken'])->group(function () {
@@ -247,32 +269,33 @@ Route::middleware(['EvolutionCMS\\Middleware\\CheckAuthToken'])->group(function 
 
 
 ### Models
-place for Models in your package: ***src/Models***
-All default tables already have Models you can see here: **/core/src/Models/**
+Модельки складываем в папку: ***src/Models***
+Можно глянуть какие есть уже модели в Evo по умолчанию: https://github.com/evolution-cms/evolution/tree/3.x/core/src/Models
 all works same https://laravel.com/docs/6.0/eloquent
-
-p.s. after add some new Models need run composer upd
-
 
 
 ## How Publish own package 
-1. Create own package on github (you can clone this for that), use prefix *evocms-* in package name, or write Evocms in file composer.json description tag. This help find all packages on https://packagist.org/?query=evocms
-2. Register own package on https://packagist.org (need for use with composer)
-3. Write me dmi3yy@evo.im if you want add your package to **Evo artisan Extras**: 
-- https://github.com/evolution-cms-extras
-- https://github.com/evolution-cms-packages
+Опубликовать для того что б можно было найти в консольном extras который появился в evo 3.0, сделали так что б можно было скриптами настраивать установку EVO c любым набором дополнений без ручного добавления оных.
+
+1. Создаем пакет на Github (можно клонировать текущий), используем префикс *evocms-* в названии пакета, или как минимум пишем **Evocms** в файле composer.json в теге description. Это поможет находить все пакеты которые доступны для установки через Composer и сделанны для Evolution CMS https://packagist.org/?query=evocms
+2. Регистрируем на сайте https://packagist.org (в целом это работает для любого php решения)
+3. Пишем мне письмо на почту dmi3yy@evo.im если хотите что б было дополнение доступно **Evo artisan Extras**: 
+я сколонирую в один из репозиториев для того что б было удобней следить и дополнять:
+- https://github.com/evolution-cms-extras  - используется для готовых к использованию компонентов
+- https://github.com/evolution-cms-packages - используются как заготовки для того что б дальше на базе них создавать сайт
+
+Активных авторов буду приглашать в команду evolution-cms-extras и evolution-cms-packages что б сами могли дополнять и развивать дополнения. 
 
 
+## Как старые дополнения адаптировать под EVO 3.0
+В целом изучив данные пример вы уже должны понимать как это сделать.
 
-## How Migrate old solution for EVO 3.0
-This sample package build for that,  you can fully rewrite for new rules. 
+###№ Но если вы хотите сделать все быстро, но халтурно что б дополнение появилось в [Evo artisan Extras](https://github.com/evolution-cms-extras) то проще всего глянуть как я мигрировал DocLister: 
 
-### But you can do fast migrate for use in [Evo artisan Extras](https://github.com/evolution-cms-extras)
+1. Создал composer.json фаил: https://github.com/evolution-cms-extras/DocLister/blob/master/composer.json
+2. Создал сервис провайдер: https://github.com/evolution-cms-extras/DocLister/blob/master/src/DocListerServiceProvider.php
+3. Перенес из папки инстал снипеты в пакет так что б они сразу работали (тут важно что б пакет был с пустым namespace): https://github.com/evolution-cms-extras/DocLister/tree/master/snippets
+4. Опубликовал пакет как описано выше: [Publish package](#how-publish-own-package)  
 
-
-1. Create composer.json file,  sample: https://github.com/evolution-cms-extras/DocLister/blob/master/composer.json
-2. Create and set Service provider, sample: https://github.com/evolution-cms-extras/DocLister/blob/master/src/DocListerServiceProvider.php
-3. Move plugins,snippets,chunks from install to folder in package, sample: https://github.com/evolution-cms-extras/DocLister/tree/master/snippets
-4. [Publish package](#how-publish-own-package)  
-
+Все, теперь можно устанавливать пакет и использовать его. 
 
