@@ -20,7 +20,8 @@ Contents:
     - Routes
     - Middleware
     - Models
-- How Publish own package?
+- [How Publish own package?](#how-publish-own-package)
+- [How Migrate old solution for EVO 3.0](#how-migrate-old-solution)
 
 
 ## Install
@@ -108,6 +109,18 @@ Now you can use:
 3. Write me dmi3yy@evo.im if you want add your package to **Evo artisan Extras**: 
 - https://github.com/evolution-cms-extras
 - https://github.com/evolution-cms-packages
+
+## How Migrate old solution for EVO 3.0
+This sample package build for that you can fully rewrite for new rules. 
+
+But you can do fast migrate for use in **Evo artisan Extras**
+https://github.com/evolution-cms-extras
+
+1. Create composer.json like that: https://github.com/evolution-cms-extras/DocLister/blob/master/composer.json
+2. Create and set Service provider: https://github.com/evolution-cms-extras/DocLister/blob/master/src/DocListerServiceProvider.php
+3. Move plugins,snippets,chunks from install to folder in package: https://github.com/evolution-cms-extras/DocLister/tree/master/snippets
+4. [Publish package] (#how-publish-own-package)  
+
 
 
 
