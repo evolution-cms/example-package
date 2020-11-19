@@ -1,5 +1,28 @@
 # Example package for Evolution CMS 3.0 
 
+
+Contents:
+- [Install]((#Install))
+- Package structure
+- Assets
+    - Chunks
+    - Modules
+    - Plugins
+    - Snippets
+    - TVs
+- Migrations
+- Public
+- Views
+- src
+    - config
+    - [Console](docs/artisan_commands.md)
+    - Controllers
+    - Routes
+    - Middleware
+    - Models
+- How Publish own package?
+
+
 ## Install
 Run in you **core** folder:
 1. ```php artisan package:installrequire evolution-cms/example-package "*" ```
@@ -23,9 +46,9 @@ Run in you **core** folder:
 
 ### src
 #### config
-#### Console
-Artisan is the command-line interface included in Evolution CMS from Laravel. It provides a number of helpful commands that can assist you while you build your application. 
-[How use Artisan and create own commands](docs/artisan_commands.md)
+#### Console 
+Artisan is the command-line interface included in Evolution CMS from Laravel. It provides a number of helpful commands that can assist you while you build your application. [How use Artisan and create own commands](docs/artisan_commands.md)
+
 
 #### Controllers
 #### Routes
@@ -54,19 +77,6 @@ if not found any match use template from DB
 Template work with Blade, docs here: https://laravel.com/docs/6.0/blade
 
 
-### Controllers and MVC 
-Best way use this packages: https://github.com/Ser1ous/seriousCustomTemplate
-You can use controllers for prepare variables and sent to template and not use snippets in template (MVC pattern)
-
-If you won't use controllers but want send data to template, ffor example from plugin or snippet you can use this code:
-```php
-$modx->addDataToView([
-   'foo'=>'bar'
-]);
-```
-place for Controllers in your package: ***src/Controllers***
-
-p.s. after add come new Controllers need run composer upd
 
 ### Models and Eloquent
 place for Models in your package: ***src/Models***
