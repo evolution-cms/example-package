@@ -1,7 +1,14 @@
 {
-  "name": "ser1ous/example",
+  "name": "evolution-cms/example-package",
+  "license": "GPL-2.0",
+  "type": "EvolutionCMS-Package",
+  "authors": [
+    {
+      "name": "Lukianenko Dmytro",
+      "email": "dmi3yy@gmail.com"
+    }
+  ],
   "require": {
-
   },
   "autoload": {
     "psr-4": {
@@ -13,7 +20,6 @@
       "providers": [
         "EvolutionCMS\\Example\\ExampleServiceProvider"
       ]
-
     }
   }
 }

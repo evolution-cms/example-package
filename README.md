@@ -1,10 +1,9 @@
-# Example package for Evolution CMS 2.0 
+# Example package for Evolution CMS 3.0 
 
 ## Install
-- Upload files to your project 
-- Run **composer upd** from core folder
-- Create new template with templatealias **example**
-- Set this template to Document what you want test
+Run in you **core** folder:
+```php artisan package:installrequire evolution-cms/example-package "*" ```
+
 
 
 ### Templates
