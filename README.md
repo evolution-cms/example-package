@@ -103,6 +103,7 @@ Now you can use:
 ### Middleware
 ### Models
 
+
 ## How Publish own package 
 1. Create own package on github (you can clone this for that), use prefix *evocms-* in package name, or write Evocms in file composer.json description tag. This help find all packages on https://packagist.org/?query=evocms
 2. Register own package on https://packagist.org (need for use with composer)
@@ -119,7 +120,11 @@ https://github.com/evolution-cms-extras
 1. Create composer.json like that: https://github.com/evolution-cms-extras/DocLister/blob/master/composer.json
 2. Create and set Service provider: https://github.com/evolution-cms-extras/DocLister/blob/master/src/DocListerServiceProvider.php
 3. Move plugins,snippets,chunks from install to folder in package: https://github.com/evolution-cms-extras/DocLister/tree/master/snippets
-4. [Publish package] (#how-publish-own-package)  
+4. [Publish package](#how-publish-own-package)  
+
+
+
+
 
 
 
