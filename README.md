@@ -100,7 +100,10 @@ $modx->runSnippet('example#subdir\test');
 ### TVs
 
 ## Migrations 
+
+
 ========================================================================================================================
+
 #### Create migration file
 run command from folder **core**: 
 ```
@@ -139,6 +142,8 @@ run command from folder **core**:
 run command from folder **core**:
 
 ```php artisan migrate:rollback```
+
+
 ========================================================================================================================
 
 
