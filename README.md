@@ -2,7 +2,7 @@
 Since most Laravel components are already in the core of Evolution CMS, it is logical to write additions for Evolution CMS according to the rules of Laravel: https://laravel.com/docs/8.x/packages
 Most Laravel packages can be easy migrate to Evolution CMS.
 
-##Contents:
+## Contents:
 - [Install](#Install)
 - [Package structure](#package-structure)
 - [Assets](#assets)
@@ -11,12 +11,13 @@ Most Laravel packages can be easy migrate to Evolution CMS.
     - [Plugins](#plugins)
     - [Snippets](#snippets)
     - [TVs](#tvss)
+- [Lang](#lang)
 - [Migrations](#migrations)
 - [Public](#public)
 - [Views](#views)
 - [src](#src)
     - [config](#config)
-    - [Console](console)
+    - [Console](#console)
     - [Controllers](#controllers)
     - [Routes](#routes)
     - [Middleware](#middleware)
@@ -34,6 +35,11 @@ Run in you **core** folder:
 3. ```php artisan migrate``` - если используются миграции
 
 ## Package structure
+This structure recommended for use, but you can use any what you want.
+
+- Assets: folder for files what connected   
+
+
 
 ## Assets
 ### Chunks
@@ -98,6 +104,18 @@ $modx->runSnippet('example#subdir\test');
 ```
 
 ### TVs
+
+
+## Lang
+Add in Service Provider in boot()
+```php
+$this->loadTranslationsFrom(__DIR__.'/../lang', 'example');
+```
+in Folder lang you need folders for langs like: en, ru, etc. and in folder php file with translations: 
+
+After that you can use: 
+```@lang('example::main.welcome')```
+
 
 ## Migrations 
 

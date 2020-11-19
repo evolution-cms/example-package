@@ -37,6 +37,10 @@ class ExampleServiceProvider extends ServiceProvider
 
         //For use config
         $this->publishes([__DIR__ . '/config/example.php' => config_path('example.php', true)]);
+
+        //MultiLang
+        $this->loadTranslationsFrom(__DIR__.'/../lang', 'example');
+        //\Lang::addNamespace('example', __DIR__.'/../lang');
     }
 
     /**
