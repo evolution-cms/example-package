@@ -114,8 +114,8 @@ Now you can use:
 ## How Migrate old solution for EVO 3.0
 This sample package build for that,  you can fully rewrite for new rules. 
 
-### But you can do fast migrate for use in **Evo artisan Extras**
-https://github.com/evolution-cms-extras
+### But you can do fast migrate for use in [Evo artisan Extras](https://github.com/evolution-cms-extras)
+
 
 1. Create composer.json file,  sample: https://github.com/evolution-cms-extras/DocLister/blob/master/composer.json
 2. Create and set Service provider, sample: https://github.com/evolution-cms-extras/DocLister/blob/master/src/DocListerServiceProvider.php
