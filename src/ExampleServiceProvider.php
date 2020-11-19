@@ -33,7 +33,7 @@ class ExampleServiceProvider extends ServiceProvider
         $this->loadViewsFrom(__DIR__ . '/../views', 'example');
 
         //For publish css,js,img files
-        $this->publishes([__DIR__ . '/../public' => public_path('vendor/example')]);
+        $this->publishes([__DIR__ . '/../public' => public_path('assets/vendor/example')]);
 
         //For use config
         $this->publishes([__DIR__ . '/config/example.php' => config_path('example.php', true)]);
