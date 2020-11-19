@@ -169,13 +169,30 @@ run command from folder **core**:
 This folder contains all file what need use for frontend, like css, js, images. 
 
 All file will move to assets folders when you run artisan publish:vendor command. 
-For set what files you can move and where uses laravel functions: 
+For set what files you can move and where uses laravel functions in Service Provider: 
 ```html
  $this->publishes([__DIR__ . '/../public' => public_path('vendor/example')]);
 ```
 More info you can find here: https://laravel.com/docs/8.x/packages#public-assets
 
 ## Views
+Add to Service Provider boot:
+```php
+ $this->loadViewsFrom(__DIR__ . '/../views', 'example');
+```
+Now you can use views with namespace: 
+```php
+return \View::make('example::example', ['data'=>'1']);
+```
+If need overriding package views, you can put view file to path:
+```/views/vendor/example/example.blade.php```
+
+And if you publish views you can do that with this code in Service Provider boot: 
+```php
+$this->publishes([__DIR__.'/../views' => public_path('views/vendor/example')]);
+```
+Full information you can read here: https://laravel.com/docs/8.x/packages#views
+
 
 ## src
 ### config
