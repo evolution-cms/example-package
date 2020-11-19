@@ -42,6 +42,8 @@ This structure recommended for use, but you can use any what you want.
 
 
 ## Assets
+Used for convenience when migrating from older versions and for a more familiar naming and location of elements.
+
 ### Chunks
 You can create chunks from files:
 ```
@@ -104,7 +106,14 @@ $modx->runSnippet('example#subdir\test');
 ```
 
 ### TVs
+Create folder and files similar https://github.com/extras-evolution/choiceTV/: 
+```tvs/TVName/TVName.customtv.php``` 
+with all logic what you need and add rules for publications: 
 
+```html
+ $this->publishes([__DIR__ . '/../assets/tvs' => public_path('assets/tvs')]);
+```
+after public with artisan public:vendor all will work
 
 ## Lang
 Add in Service Provider in boot()
@@ -118,8 +127,11 @@ After that you can use:
 
 
 ## Migrations 
+All work like in Laravel https://laravel.com/docs/8.x/migrations
+Put file with migration for package in folder migrations and set in Service Provider: 
+```$this->loadMigrationsFrom(__DIR__ . '/../migrations');```
 
-
+When you install package, need run from **core** folder ```php artisan migrate```
 
 
 ## Public
@@ -127,8 +139,8 @@ This folder contains all file what need use for frontend, like css, js, images.
 
 All file will move to assets folders when you run artisan publish:vendor command. 
 For set what files you can move and where uses laravel functions in Service Provider: 
-```html
- $this->publishes([__DIR__ . '/../public' => public_path('vendor/example')]);
+```php
+ $this->publishes([__DIR__ . '/../public' => public_path('assets/vendor/example')]);
 ```
 More info you can find here: https://laravel.com/docs/8.x/packages#public-assets
 
@@ -152,16 +164,15 @@ Full information you can read here: https://laravel.com/docs/8.x/packages#views
 
 
 ## src
-
+In this place put all code what need be autoloaded with composer
 
 ### config
-
+Read Laravel docs: 
+- https://laravel.com/docs/8.x/packages#configuration
+- https://laravel.com/docs/8.x/packages#default-package-configuration
 
 ### Console 
-
-
-#### Artisan
-Artisan is the command-line interface included with Laravel. It provides a number of helpful commands that can assist you while you build your application. More info you can find here: https://laravel.com/docs/8.x/artisan
+Artisan is the command-line interface included in Evolutions CMS. It provides a number of helpful commands that can assist you while you build your application. More info you can find here: https://laravel.com/docs/8.x/artisan
 
 #### How use artisan:
 run **artisan** from **core** folder:
@@ -211,13 +222,28 @@ Now you can use:
 
 
 ### Controllers
+Put Controllers in src/Controllers 
+for sample see in code.
 
 
 ### Routes
-
+If your package contains routes, you may load them using this code in ServiceProvider boot(): 
+```php
+include(__DIR__.'/Http/routes.php');
+```
+How work with routes, you can read here: https://laravel.com/docs/8.x/routing
 
 ### Middleware
+You can put Middleware in folder src/Middleware and use that
+https://laravel.com/docs/8.x/middleware
 
+In Evolution CMS exist Middleware for check user auth token https://github.com/evolution-cms/evolution/blob/3.x/core/src/Middleware/CheckAuthToken.php:
+
+```php
+Route::middleware(['EvolutionCMS\\Middleware\\CheckAuthToken'])->group(function () {
+     Route::get('/secureuserinfo', [EvolutionCMS\Example\Controllers\ExampleApiController::class, '`getInfo`']);
+});
+```
 
 
 ### Models
