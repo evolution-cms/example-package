@@ -2,7 +2,7 @@
 
 
 Contents:
-- [Install]((#Install))
+- [Install](#Install)
 - Package structure
 - Assets
     - Chunks
