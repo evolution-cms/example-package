@@ -120,49 +120,6 @@ After that you can use:
 ## Migrations 
 
 
-========================================================================================================================
-
-#### Create migration file
-run command from folder **core**: 
-```
-php artisan  make:migration test
-```
-This will create migration file in folder: **/core/database/migration**
-
-#### Fill migration file
-Open created file from **/core/database/migration**
-and fill 2 function:
-```
-    //Create new Doc and add docId in global setting for use
-    public function up()
-    {
-        $testDoc = SiteContent::create([
-            'pagetitle' => 'test'
-        ])->getKey();
-        evo_update_config_settings('page_id_test', $testDoc);
-    }
-    
-    //Delete created document and setting
-    public function down()
-    {
-        $page_id_test = evolutionCMS()->getConfig('page_id_test');
-        SiteContent::find($page_id_test)->forceDelete();
-        evo_delete_config_settings('page_id_test');
-    }
-```
-
-#### Run migration
-run command from folder **core**:
-
-```php artisan migrate```
-
-#### Rollback last migration
-run command from folder **core**:
-
-```php artisan migrate:rollback```
-
-
-========================================================================================================================
 
 
 ## Public
@@ -195,8 +152,14 @@ Full information you can read here: https://laravel.com/docs/8.x/packages#views
 
 
 ## src
+
+
 ### config
+
+
 ### Console 
+
+
 #### Artisan
 Artisan is the command-line interface included with Laravel. It provides a number of helpful commands that can assist you while you build your application. More info you can find here: https://laravel.com/docs/8.x/artisan
 
@@ -248,8 +211,14 @@ Now you can use:
 
 
 ### Controllers
+
+
 ### Routes
+
+
 ### Middleware
+
+
 
 ### Models
 place for Models in your package: ***src/Models***
