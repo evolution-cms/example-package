@@ -12,6 +12,10 @@ class ExampleServiceProvider extends ServiceProvider
      */
     protected $namespace = 'example';
 
+    //add after line: protected $namespace
+    protected $commands = [
+        'EvolutionCMS\Example\Console\ExampleCommand',
+    ];
     /**
      * Bootstrap the application services.
      *

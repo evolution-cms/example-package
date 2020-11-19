@@ -2,11 +2,42 @@
 
 ## Install
 Run in you **core** folder:
-```php artisan package:installrequire evolution-cms/example-package "*" ```
+1. ```php artisan package:installrequire evolution-cms/example-package "*" ```
+
+2. ```php artisan vendor:publish --provider="EvolutionCMS\Example\ExampleServiceProvider"``` - если используется копирование файлов публичных и конфигов
+
+3. ```php artisan migrate``` - если используются миграции
+
+## Package structure
+
+### Assets
+#### Chunks
+#### Modules
+#### Plugins
+#### Snippets
+#### TVs
+
+### Migrations 
+### Public
+### Views
+
+### src
+#### config
+#### Console
+Artisan is the command-line interface included in Evolution CMS from Laravel. It provides a number of helpful commands that can assist you while you build your application. 
+[How use Artisan and create own commands](docs/artisan_commands.md)
+
+#### Controllers
+#### Routes
+#### Middleware
+#### Models
+
+ 
 
 
 
-### Templates
+
+### Docs
 Linking templates to the document without EVO admin panel
 
 To work, we need to create a folder views in the root of the site, in which we will have templates. Actually and everything, no additional actions in the form of installing anything is required.
@@ -177,120 +208,6 @@ best practice for build api
 **core/custom/.env.example**
 
 
-### Artisan
-run **artisan** from **core** folder:
-```console
-php artisan
-```
-for see all Available commands
 
 
-Also you can add own artisan commands:
-create file: **core/custom/packages/example/src/Console/ExampleCommand.php**
-```
-<?php
-namespace EvolutionCMS\Example\Console;
 
-use Illuminate\Console\Command;
-
-class ExampleCommand extends Command
-{
-
-    protected $signature = 'example:testcommand';
-
-    protected $description = 'TestCommand';
-
-    public function __construct()
-    {
-        parent::__construct();
-        $this->evo = EvolutionCMS();
-    }
-
-    public function handle()
-    {
-        echo 'Hello Word';
-    }
-}
-```
-add in file: **core/custom/packages/example/src/ExampleServiceProvider.php**
-```
-    //add after line: protected $namespace
-    protected $commands = [
-        'EvolutionCMS\Example\Console\ExampleCommand',
-    ];
-```
-
-
-### IDE-Helper
-
-- Add in *core/custom/composer.json* :  ```"barryvdh/laravel-ide-helper": "~2.4",```
-- Run **composer upd** from core folder
-- create file: **core/custom/config/ide-helper.php**
-```
-<?php
-    return array(
-        'filename'  => '_ide_helper',
-        'format'    => 'php',
-        'meta_filename' => '.phpstorm.meta.php',
-        'include_fluent' => false,
-        'write_model_magic_where' => true,
-        'write_eloquent_model_mixins' => false,
-        'include_helpers' => false,
-        'helper_files' => array(
-            base_path().'/vendor/laravel/framework/src/Illuminate/Support/helpers.php',
-        ),
-        'model_locations' => array(
-            'src/Models'
-            'custom/packages/example/src/Models',//or another path for your models
-        ),
-        'extra' => array(
-            'Eloquent' => array('Illuminate\Database\Eloquent\Builder', 'Illuminate\Database\Query\Builder'),
-            'Session' => array('Illuminate\Session\Store'),
-        ),
-    
-        'magic' => array(
-            'Log' => array(
-                'debug'     => 'Monolog\Logger::addDebug',
-                'info'      => 'Monolog\Logger::addInfo',
-                'notice'    => 'Monolog\Logger::addNotice',
-                'warning'   => 'Monolog\Logger::addWarning',
-                'error'     => 'Monolog\Logger::addError',
-                'critical'  => 'Monolog\Logger::addCritical',
-                'alert'     => 'Monolog\Logger::addAlert',
-                'emergency' => 'Monolog\Logger::addEmergency',
-            )
-        ),
-        'interfaces' => array(
-    
-        ),
-        'custom_db_types' => array(
-    
-        ),
-        'model_camel_case_properties' => false,
-        'type_overrides' => array(
-            'integer' => 'int',
-            'boolean' => 'bool',
-        ),
-        'include_class_docblocks' => false,
-    );
-
-```
-- change or add path for your package:
-```
-    'model_locations' => array(
-        'src/Models'
-        'custom/packages/example/src/Models',//or another path for your models
-    ),
-```
-- run from console in core folder:
-```
-    php artisan ide-helper:generate
-    php artisan ide-helper:models
-    php artisan ide-helper:meta
-```
-- set in phpStorm preferences: 
-```
-    in Editor->Inspections->PHP->Underfined->Options: 
-    set checked:
-        Don't report multiplie class declaration potential problems   
-```
