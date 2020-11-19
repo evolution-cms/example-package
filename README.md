@@ -102,7 +102,14 @@ Now you can use:
 ### Middleware
 ### Models
 
- 
+## How Publish own package 
+1. Create own package on github (you can clone this for that), use prefix *evocms-* in package name, or write Evocms in file composer.json description tag. This help find all packages on https://packagist.org/?query=evocms
+2. Register own package on https://packagist.org (need for use with composer)
+3. Write me dmi3yy@evo.im if you want add your package to **Evo artisan Extras**: 
+- https://github.com/evolution-cms-extras
+- https://github.com/evolution-cms-packages
+
+
 
 
 
