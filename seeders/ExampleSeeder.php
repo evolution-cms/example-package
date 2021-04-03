@@ -5,7 +5,7 @@ namespace Database\Seeders;
 use EvolutionCMS\Models\{SiteTmplvar, SiteTmplvarTemplate, SiteTemplate};
 use Illuminate\Database\Seeder;
 
-class CustomTemplateVarsSeeder extends Seeder
+class ExampleSeeder extends Seeder
 {
     public function run()
     {
@@ -14,12 +14,12 @@ class CustomTemplateVarsSeeder extends Seeder
 
         foreach ($templateVars as $name => $data) {
             // создаем (либо обновляем, если существует) тв-параметр
-            $tvid = SiteTmplvar::updateOrCreate(['name' => $name], $data);
-            
+            $tv = SiteTmplvar::updateOrCreate(['name' => $name], $data);
+
             // привязываем к шаблонам
             foreach ($templates as $tplid) {
                 SiteTmplvarTemplate::updateOrCreate([
-                    'tmplvarid'  => $tvid,
+                    'tmplvarid'  => $tv->id,
                     'templateid' => $tplid,
                 ]);
             }
@@ -39,7 +39,7 @@ class CustomTemplateVarsSeeder extends Seeder
             ],
         ];
     }
-    
+
     protected function getTemplates()
     {
         return SiteTemplate::all()
