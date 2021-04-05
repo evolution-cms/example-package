@@ -16,6 +16,7 @@
     - [TVs](#tvss)
 - [Lang](#lang)
 - [Migrations](#migrations)
+- [Seeders](#seeders)
 - [Public](#public)
 - [Views](#views)
 - [src](#src)
@@ -37,12 +38,15 @@
 
 3. ```php artisan migrate``` - если используются миграции
 
+4. ```php artisan db:seed --class=ExampleSeeder``` - если используются сиды
+
 ## Package structure
 Рекомендованная структура папок:
 
 - Assets: для привычной структуры, в целом нам нужны только плагины и модули и можно вынести в корень, сниппеты и чанки могут понадобиться только для того что б мигрировать старые дополнения
 - Lang: для мультиязычности
 - Migrations: для миграций, в целом это для создания таблиц, но можно так же делать и другие действия, к примеру через миграции можно создавать шаблоны, тв, документы
+- Seeders: для заполнения контентом, создания тв, шаблонов
 - Public: все файлы которые нужны публично, в основном js, css, картинки
 - Views: для шаблонов Blade
 - src: тут все что попадает в автолоад composer-a
@@ -147,6 +151,13 @@ $this->loadTranslationsFrom(__DIR__.'/../lang', 'example');
 ```$this->loadMigrationsFrom(__DIR__ . '/../migrations');```
 
 После установки дополнения выполням команду ```php artisan migrate```
+
+
+## Seeders
+Создаем сид в папке seeders, добавляем запись о переносе в сервис-провайдер:
+```$this->publishes([__DIR__ . '/../seeders' => EVO_CORE_PATH . 'database/seeders']);```
+
+После установки выполням команду ```php artisan db:seed --class=ExampleSeeder```
 
 
 ## Public

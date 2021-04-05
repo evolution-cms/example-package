@@ -32,6 +32,9 @@ class ExampleServiceProvider extends ServiceProvider
         //Custom Views
         $this->loadViewsFrom(__DIR__ . '/../views', 'example');
 
+        // Seeders
+        $this->publishes([__DIR__ . '/../seeders' => EVO_CORE_PATH . 'database/seeders']);
+
         //For publish css,js,img files
         $this->publishes([__DIR__ . '/../public' => public_path('assets/vendor/example')]);
 
