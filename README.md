@@ -131,7 +131,7 @@ $modx->runSnippet('example#subdir\test');
 ```html
  $this->publishes([__DIR__ . '/../assets/tvs/TVName' => public_path('assets/tvs/TVName')]);
 ```
-Далее после запуска команды **artisan public:vendor** и выбора указанногоо пакета все файлы скопируются и все будет работать
+Далее после запуска команды **artisan vendor:publish** и выбора указанного пакета все файлы скопируются и все будет работать
 
 ## Lang
 Добавляем в сервис провайдере в boot()
@@ -167,7 +167,7 @@ $this->loadTranslationsFrom(__DIR__.'/../lang', 'example');
 ```php
  $this->publishes([__DIR__ . '/../public' => public_path('assets/vendor/example')]);
 ```
-А в BLade прописываем уже пути согласно тому куда файлы будут перемещены, для их перемещения используется команда **artisan public:vendor**
+А в BLade прописываем уже пути согласно тому куда файлы будут перемещены, для их перемещения используется команда **artisan vendor:publish**
 
 Больше информации можно найти тут: https://laravel.com/docs/8.x/packages#public-assets
 
