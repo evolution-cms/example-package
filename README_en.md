@@ -217,6 +217,12 @@ add in file: **core/custom/packages/example/src/ExampleServiceProvider.php**
     ];
 ```
 
+Also in the registration method of our notification provider service:
+```php
+//registering commands for artisan
+$this->commands($this->commands);
+```
+
 Now you can use: 
 ```php artisan example:examplecommand```
 

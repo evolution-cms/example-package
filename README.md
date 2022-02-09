@@ -245,6 +245,12 @@ class ExampleCommand extends Command
     ];
 ```
 
+Также в методе register нашего сервис провайдера указываем:
+```php
+//регистрация команд для artisan
+$this->commands($this->commands);
+```
+
 Теперь можно использовать: 
 ```php artisan example:examplecommand```
 
