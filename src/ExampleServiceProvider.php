@@ -54,6 +54,9 @@ class ExampleServiceProvider extends ServiceProvider
 
     public function register()
     {
+        //registering commands for artisan
+        $this->commands($this->commands);
+
         $this->loadSnippetsFrom(
             dirname(__DIR__). 'assets/snippets/',
             $this->namespace
