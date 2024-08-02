@@ -1,5 +1,4 @@
-<?php
-namespace EvolutionCMS\Example\Console;
+<?php namespace EvolutionCMS\Main\Console;
 
 use Illuminate\Console\Command;
 

@@ -1,18 +1,17 @@
-<?php
-
-namespace EvolutionCMS\Example\Controllers;
+<?php namespace EvolutionCMS\Main\Controllers;
 
 use Illuminate\Support\Facades\Cache;
 
 class BaseController
 {
+    public $evo = [];
     public $data = [];
 
     public function __construct()
     {
-        $this->evo = EvolutionCMS();
+        $this->evo = evo();
         ksort($_GET);
-        $cacheid = md5(json_encode($_GET));
+        $cacheid = sha1(json_encode($_GET));
         if ($this->evo->getConfig('enable_cache')) {
             $this->data = Cache::rememberForever($cacheid, function () {
                 $this->globalElements();
@@ -29,17 +28,17 @@ class BaseController
 
     public function render()
     {
-
+        // Here Code to be cached
     }
 
     public function noCacheRender()
     {
-
+        // Here Code that will not be cached
     }
 
     public function globalElements()
     {
-
+        // Here Code that will be available globally to all child controllers
     }
 
     public function sendToView()

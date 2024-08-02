@@ -1,14 +1,12 @@
-<?php
-
-namespace EvolutionCMS\Example\Controllers;
-
-use Illuminate\Support\Facades\Cache;
+<?php namespace EvolutionCMS\Main\Controllers;
 
 class ExampleController extends BaseController
 {
-    public function render()  //Пример для вывода данных
+    public function render()
     {
+        parent::render();
+
+        // Example for data output
         $this->data['test'] = 'test';
     }
-
 }

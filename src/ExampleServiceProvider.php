@@ -1,21 +1,22 @@
-<?php namespace EvolutionCMS\Example;
+<?php namespace EvolutionCMS\Main;
 
 use EvolutionCMS\ServiceProvider;
 
 class ExampleServiceProvider extends ServiceProvider
 {
     /**
-     * Если указать пустую строку, то сниппеты и чанки будут иметь привычное нам именование
-     * Допустим, файл test создаст чанк/сниппет с именем test
-     * Если же указан namespace то файл test создаст чанк/сниппет с именем main#test
-     * При этом поддерживаются файлы в подпапках. Т.е. файл test из папки subdir создаст элемент с именем subdir/test
+     * If you specify an empty string, then snippets and chunks will have the usual naming
+     * Let's say the file test will create a chunk/snippet named test
+     * If namespace is specified, the test file will create a chunk/snippet with the name main#test
+     * Files in subfolders are supported. That is, the file test from the subdir folder will create an element named subdir/test
      */
-    protected $namespace = 'example';
+    protected $namespace = 'main';
 
-    //add after line: protected $namespace
+    // Add after line: protected $namespace
     protected $commands = [
         'EvolutionCMS\Example\Console\ExampleCommand',
     ];
+
     /**
      * Bootstrap the application services.
      *
@@ -23,25 +24,25 @@ class ExampleServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //add custom routes for package
+        // Add custom routes for package
         include(__DIR__.'/Http/routes.php');
 
-        //Migration for create tables
+        // Migration for create tables
         $this->loadMigrationsFrom(__DIR__ . '/../migrations');
 
-        //Custom Views
+        // Custom Views
         $this->loadViewsFrom(__DIR__ . '/../views', 'example');
 
         // Seeders
         $this->publishes([__DIR__ . '/../seeders' => EVO_CORE_PATH . 'database/seeders']);
 
-        //For publish css,js,img files
+        // For publish css,js,img files
         $this->publishes([__DIR__ . '/../public' => public_path('assets/vendor/example')]);
 
-        //For use config
+        // For use config
         $this->publishes([__DIR__ . '/config/example.php' => config_path('example.php', true)]);
 
-        //MultiLang
+        // MultiLang
         $this->loadTranslationsFrom(__DIR__.'/../lang', 'example');
         //\Lang::addNamespace('example', __DIR__.'/../lang');
     }
@@ -54,7 +55,7 @@ class ExampleServiceProvider extends ServiceProvider
 
     public function register()
     {
-        //registering commands for artisan
+        // Registering commands for artisan
         $this->commands($this->commands);
 
         $this->loadSnippetsFrom(

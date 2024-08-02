@@ -1,4 +1,4 @@
-# Example package for Evolution CMS 3.0 
+# Example package for Evolution CMS 3.x
 Since most Laravel components are already in the core of Evolution CMS, it is logical to write additions for Evolution CMS according to the rules of Laravel: https://laravel.com/docs/8.x/packages
 Most Laravel packages can be easy migrate to Evolution CMS.
 

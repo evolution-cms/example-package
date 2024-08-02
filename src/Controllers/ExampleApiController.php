@@ -1,15 +1,13 @@
-<?php
-
-namespace EvolutionCMS\Example\Controllers;
+<?php namespace EvolutionCMS\Main\Controllers;
 
 use \EvolutionCMS\Models\SiteContent;
+
 /**
  * Class ExampleApiController
  * @package EvolutionCMS\Custom
  */
 class ExampleApiController
 {
-
     public function getDocuments()
     {
         $docs = SiteContent::where('parent', 0)
@@ -18,9 +16,8 @@ class ExampleApiController
         return $docs;
     }
 
-    public function getInfo(){
+    public function getInfo()
+    {
         return \Response::json($this->getDocuments());
     }
-
-
 }
