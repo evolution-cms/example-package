@@ -13,7 +13,7 @@ class ExampleSeeder extends Seeder
         $templates = $this->getTemplates();
 
         foreach ($templateVars as $name => $data) {
-            // создаем (либо обновляем, если существует) тв-параметр
+            // створюємо (або оновлюємо, якщо існує) тв-параметр
             $tv = SiteTmplvar::updateOrCreate(['name' => $name], $data);
 
             // привязываем к шаблонам

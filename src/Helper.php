@@ -1,4 +1,4 @@
-<?php namespace EvolutionCMS\Example;
+<?php namespace EvolutionCMS\Main;
 
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;

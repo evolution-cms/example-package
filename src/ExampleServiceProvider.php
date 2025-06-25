@@ -31,7 +31,7 @@ class ExampleServiceProvider extends ServiceProvider
         $this->loadMigrationsFrom(__DIR__ . '/../migrations');
 
         // Custom Views
-        $this->loadViewsFrom(__DIR__ . '/../views', 'example');
+        $this->loadViewsFrom(__DIR__ . '/../views', 'main');
 
         // Seeders
         $this->publishes([__DIR__ . '/../seeders' => EVO_CORE_PATH . 'database/seeders']);
@@ -43,8 +43,8 @@ class ExampleServiceProvider extends ServiceProvider
         $this->publishes([__DIR__ . '/config/example.php' => config_path('example.php', true)]);
 
         // MultiLang
-        $this->loadTranslationsFrom(__DIR__.'/../lang', 'example');
-        //\Lang::addNamespace('example', __DIR__.'/../lang');
+        $this->loadTranslationsFrom(__DIR__.'/../lang', 'main');
+        //\Lang::addNamespace('main', __DIR__.'/../lang');
     }
 
     /**

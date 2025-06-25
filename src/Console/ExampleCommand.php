@@ -5,7 +5,7 @@ use Illuminate\Console\Command;
 class ExampleCommand extends Command
 {
 
-    protected $signature = 'example:examplecommand';
+    protected $signature = 'main:examplecommand';
 
     protected $description = 'ExampleCommand';
 

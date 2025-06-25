@@ -7,6 +7,6 @@ Route::get('example', function () {
 
 Route::get('exampleview', function () {
 
-    return \View::make('example::example', ['data'=>'1']);
+    return \View::make('main::example', ['data'=>'1']);
 
 });

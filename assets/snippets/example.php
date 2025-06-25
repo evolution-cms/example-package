@@ -1,3 +1,1 @@
-<?php
-$evo = evolutionCMS();
-return $evo->getChunk('example#test');
+<?php return evo()->getChunk('main#test');
