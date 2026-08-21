@@ -11,7 +11,7 @@ class BaseController
     {
         $this->evo = evo();
         ksort($_GET);
-        $cacheid = sha1(json_encode($_GET));
+        $cacheid = sha1(implode('|', [static::class, evo()->getConfig('site_name', 'evo'), evo()->getLocale(), (string)evo()->documentIdentifier, request()->path(), http_build_query($_GET)]));
         if ($this->evo->getConfig('enable_cache')) {
             $this->data = Cache::rememberForever($cacheid, function () {
                 $this->globalElements();
